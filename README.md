@@ -1,2 +1,2 @@
 # GymManagementSystem
-## A simple GUI using Tkinter
+A simple GUI using Tkinter
