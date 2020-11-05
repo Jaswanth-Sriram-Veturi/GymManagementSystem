@@ -147,20 +147,12 @@ class Register:
             self.register_phone_number_text.delete("1.0", END)
             self.register_city_text.delete("1.0", END)
         else:
-            search_query = "SELECT * FROM details WHERE name=%s"
-            value_name = (name_field, )
-            cursor.execute(search_query, value_name)
-            result = cursor.fetchall()
-            for i in result:
-                if i[1] == name_field:
-                    Label(frame_register, text="Username exists", fg="red").place(x=200, y=450)
-                else:
-                    insert_query = "INSERT INTO details(name, password, phone_number, city) VALUES(%s, %s, %s, %s)"
-                    value = (name_field, password_field, phone_number_field, city_field)
-                    cursor.execute(insert_query, value)
-                    db.commit()
-                    label_register_successful = Label(text="Register Successful")
-                    label_register_successful.place(x=300, y=470)
+            insert_query = "INSERT INTO details(name, password, phone_number, city) VALUES(%s, %s, %s, %s)"
+            value = (name_field, password_field, phone_number_field, city_field)
+            cursor.execute(insert_query, value)
+            db.commit()
+            label_register_successful = Label(text="Register Successful")
+            label_register_successful.place(x=300, y=470)
             self.register_name_text.delete("1.0", END)
             self.register_password_text.delete("1.0", END)
             self.register_phone_number_text.delete("1.0", END)
