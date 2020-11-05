@@ -340,8 +340,10 @@ class Customer:
         self.city_text = Text(self.frame_profile, height=1, width=30)
         self.password_label = Label(self.frame_profile, text="Password", bg="#f5b461")
         self.password_text = Text(self.frame_profile, height=1, width=30)
-        self.btn_change_password = Button(self.frame_profile, text="Change Password", relief="groove", bg="#ec524b",
-                                          fg="#fff", padx=20, pady=5, command=self.change_password)
+        self.change = Button(self.frame_profile, text="Change", relief="groove", bg="#ec524b", fg="#fff", padx=10,
+                             pady=3, command=self.change_password)
+        self.btn_save = Button(self.frame_profile, text="Save", relief="groove", bg="#ec524b",
+                               fg="#fff", padx=20, pady=5, command=self.save)
         self.btn_back_to_customer = Button(self.frame_profile, text="Back", relief="groove", bg="#ec524b",
                                            fg="#fff", padx=20, pady=5, command=self.back_to_customer)
         self.btn_back_to_customer.place(x=280, y=550)
@@ -423,7 +425,8 @@ class Customer:
         self.password_label.place(x=50, y=400)
         self.password_text.place(x=250, y=400)
         self.password_text.insert(INSERT, row[2])
-        self.btn_change_password.place(x=250, y=460)
+        self.change.place(x=510, y=390)
+        self.btn_save.place(x=280, y=460)
 
     def change_password(self):
         password = simpledialog.askstring("Input", "New Password", parent=self.frame_profile)
@@ -435,6 +438,15 @@ class Customer:
         else:
             # print("Password not changed")
             pass
+
+    def save(self):
+        name = self.name_text.get("1.0", "end-1c")
+        phone_number = self.phone_number_text.get("1.0", "end-1c")
+        city = self.city_text.get("1.0", "end-1c")
+        update = "UPDATE details SET name=%s, phone_number=%s, city=%s WHERE id=%s"
+        values = (name, phone_number, city, id_of_user)
+        cursor.execute(update, values)
+        db.commit()
 
     def logout(self):
         self.frame_profile.pack_forget()
